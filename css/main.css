@@ -1,5 +1,51 @@
+body{
+  text-align: center;
+}
 td{
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 50px;
   padding: 0;
+  text-align: center;
+}
+
+.muro{
+  background-image: url('https://userscontent2.emaze.com/images/aba421ac-f1c7-4734-ab10-a9b3c2c16bc0/543b4f53f5ca95423a5f0abbacd5a07a.png');
+  background-size: cover;
+}
+
+#empezar{
+  background-image: url('persona.jpg');
+  background-position: 0px -62px;
+}
+@keyframes walk1 {
+  0% {background-position: 0px -62px}
+  100% {background-position: 156px -62px}
+}
+#up{
+  background-image: url('persona.jpg');
+  animation: walk1 1s steps(4) infinite;
+}
+@keyframes walk2 {
+  0% {background-position: 0px -2px}
+  100% {background-position: 156px -2px}
+}
+#down{
+  background-image: url('persona.jpg');
+  animation: walk2 1s steps(4) infinite;
+}
+@keyframes walk3 {
+  0% {background-position: 0px -182px}
+  100% {background-position: 160px -182px}
+}
+#rigth{
+  background-image: url('persona.jpg');
+  animation: walk3 1s steps(4) infinite;
+}
+@keyframes walk4 {
+  0% {background-position: 0px -122px}
+  100% {background-position: 160px -122px}
+}
+#left{
+  background-image: url('persona.jpg');
+  animation: walk4 1s steps(4) infinite;
 }

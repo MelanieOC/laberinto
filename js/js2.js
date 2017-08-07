@@ -3,16 +3,15 @@ var laberinto=document.getElementById('laberinto');
 var mapa=[
 "******************",
 "*_________*______*",
-"*_*****_____******",
+"*__****____******",
 "*______***__*__*_*",
 "***_*____*____**_*",
 "*___*____**__*___*",
 "*_********__**_*_*",
 "*____*______*__*_*",
 "*_**_*__*****_**_*",
-"*o*__*________**_*",
-"****************W*"];
-
+"*o*___________**W*",
+"******************"];
 
 var x;
 var y;
@@ -35,10 +34,10 @@ for (var i = 0; i < mapa.length; i++){
     map[i][j]=mapa[i][j];
   }
 }
-var flecha_izquierda='left';
-var flecha_derecha='rigth';
-var flecha_arriba='up';
-var flecha_abajo='down';
+var flecha_izquierda=document.createTextNode('←');
+var flecha_derecha=document.createTextNode('→');
+var flecha_arriba=document.createTextNode('↑');
+var flecha_abajo=document.createTextNode('↓');
 
 function generarMapa(map, flecha) {
   laberinto.innerHTML='';
@@ -49,28 +48,32 @@ function generarMapa(map, flecha) {
     for (var j = 0; j < map[i].length; j++) {
         var celda = document.createElement('td');
         if(map[i][j]=='*'){
-          celda.setAttribute('class', 'muro');
+          celda.style.backgroundColor='black';
         } else if(map[i][j]=='o'){
           x=j;
           y=i;
           f=flecha;
-          celda.setAttribute('id',flecha);
+          celda.appendChild(flecha);
         } else if (map[i][j]=='W') {
           xfinal=j;
           yfinal=i;
-          celda.setAttribute('class', 'llegada');
+          celda.style.backgroundColor='red';
         }
         fila.appendChild(celda);
     }
     tabla.appendChild(fila);
   }
   laberinto.appendChild(tabla);
-  if(x==xfinal && y==yfinal){
+  if(ganaste()){
     alert('ganaste');
   }
 }
 
-generarMapa(map, 'empezar');
+function ganaste() {
+  return x==xfinal && y==yfinal;
+}
+
+generarMapa(map, flecha_arriba);
 
 function move(a, b, flecha) {
   if(map[y+a][x+b]!='*'&&f==flecha){
@@ -100,3 +103,34 @@ function movimiento(evento)
     break;
   }
 }
+
+function check(a, b, flecha1, flecha2) {
+  if(map[y+a][x+b]!='*'){
+    move(a, b, f);
+  } else if (map[y+b][x+a]=='*'&& map[y+a][x+b]=='*') {
+    f=flecha1;
+    generarMapa(map,f);
+  } else {
+    f=flecha2;
+    generarMapa(map,f);
+  }
+}
+
+var r = document.getElementById('resolver');
+r.onclick=function(){
+  switch (f) {
+    case flecha_arriba:
+      check(-1, 0, flecha_derecha, flecha_izquierda);
+    break;
+    case flecha_derecha:
+      check(0, 1, flecha_arriba, flecha_abajo);
+    break;
+    case flecha_izquierda:
+      check(0, -1, flecha_abajo, flecha_arriba);
+    break;
+    case flecha_abajo:
+      check(1, 0, flecha_izquierda, flecha_derecha);
+    break;
+    default:
+  }
+};
