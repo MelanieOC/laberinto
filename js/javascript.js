@@ -4,14 +4,14 @@ var reiniciar = document.getElementById('reiniciar');
 var mapa=[
 "******************",
 "*_________*______*",
-"*_*****_____******",
-"*______***__*__*_*",
-"***_*____*____**_*",
+"*_*****_*___******",
+"*_______**__*__*_*",
+"***_*_____*___**_*",
 "*___*____**__*___*",
 "*_********__**_*_*",
-"*____*______*__*_*",
-"*_**_*__*****_**_*",
-"*o*__*________**W*",
+"*__*_*______*__*_*",
+"*__*_*__*****_**_*",
+"*o*___________**W*",
 "******************"];
 
 
@@ -60,7 +60,7 @@ function generarMapa(mapa, direccion) {
         } else if (mapa[i][j]=='W') {
           xfinal=j;
           yfinal=i;
-          celda.setAttribute('class', 'llegada');
+          celda.setAttribute('id', 'llegada');
         }
         fila.appendChild(celda);
     }
@@ -80,8 +80,9 @@ function generarMapa(mapa, direccion) {
 
 generarMapa(map, 'empezar');
 
+
 function move(a, b, direccion) {
-  if(map[y+a][x+b]!='*'&&f==direccion){
+  if(map[y+a][x+b]!='*' &&f==direccion){
     map[y][x]='x';
     map[y+a][x+b]='o';
   }
@@ -111,43 +112,100 @@ reiniciar.onclick=function() {
   map[y][x]='_';
   map[9][1]='o';
   generarMapa(map, 'empezar');
-}
-function pegado(a,b, d) {
- if(d=='arriba'&& d=='abajo'){
-    return map[y+b][x+a]=='*';
- } else{
-    return map[y-b][x+a]=='*';
- }
-}
-function check(a, b, flecha1, flecha2) {
-  if(map[y+a][x+b]!='*' && pegado(a,b,f)){
-    move(a, b, f);
-  } else if (map[y+b][x+a]=='*'&& map[y+a][x+b]=='*') {
-    f=flecha1;
-    generarMapa(map,f);
-  } else {
-    f=flecha2;
-    generarMapa(map,f);
-  }
+  clearInterval(time);
 }
 
+function pegado(a, b, f) {
+  if(f=='arriba'&& f=='abajo'){
+    return map[y+b][x+a]=='*';
+  } else {
+    return map[y-b][x+a]=='*';
+  }
+}
+function voltear(a, b){
+  if(f=='arriba'&& f=='abajo'){
+    return map[y+a][x]=='*'&&map[y][x+a]=='*';
+  } else {
+    return map[y-b][x]=='*'&& map[y][x+b]=='*';
+  }
+}
+function check(a, b, flecha1, flecha2) {
+  if(map[y+a][x+b]!='*' && pegado(a, b, f)){
+    move(a, b, f);
+  } 
+}
+
+var time;
+
 var r = document.getElementById('resolver');
-r.onclick=function resolver(){
+r.onclick=function () {
+  time = setInterval(resolver, 300);
+}
+
+function resolver(){
+  if(x==xfinal && y==yfinal){
+    clearInterval(time);
+  }
   switch (f) {
     case arriba:
       check(-1, 0, derecha, izquierda);
+      if(map[y-1][x]=='*'&&map[y][x-1]=='*'){
+        f=derecha;
+        generarMapa(map,f);
+      }
+      if(map[y+1][x-1]=='*'&& map[y][x-1]!='*'){
+        f=izquierda;
+        generarMapa(map,f);
+        move(0, -1, izquierda);
+      }
     break;
     case derecha:
       check(0, 1, arriba, abajo);
+      if(map[y-1][x]=='*'&& map[y][x+1]=='*'){
+        f=abajo;
+        generarMapa(map,f);
+      }
+      if(map[y-1][x-1]=='*'&& map[y-1][x]!='*'){
+        f=arriba;
+        generarMapa(map,f);
+        move(-1, 0, arriba);
+      }
     break;
     case izquierda:
       check(0, -1, abajo, arriba);
+      if(map[y+1][x]=='*'&&map[y][x-1]=='*'){
+        f=arriba;
+        generarMapa(map,f);
+      }
+      if(map[y+1][x+1]=='*'&& map[y+1][x]!='*'){
+        f=abajo;
+        generarMapa(map,f);
+        move(1, 0, abajo);
+      }
     break;
     case abajo:
       check(1, 0, izquierda, derecha);
+      if(map[y+1][x]=='*'&&map[y][x+1]=='*'){
+        f=izquierda;
+        generarMapa(map,f);
+      }
+      if(map[y-1][x+1]=='*'&& map[y][x+1]!='*'){
+        f=derecha;
+        generarMapa(map,f);
+        move(0, 1, derecha);
+      }
     break;
     default:
       f=arriba;
   }
 };
 
+/*function () {
+  time = setInterval(resolver, 300);
+}
+function resolver(){
+  if(x==xfinal && y==yfinal){
+    clearInterval(time);
+  }
+  
+*/
