@@ -6,14 +6,20 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <h1>Laberinto</h1>
-    <p>Ayuda al niño a salir del bosque</p>
-    <p>Usa las flechas del teclado para guiarlo</p>
-    <div id="laberinto" align='center'>
-    </div>
-    <div id='botones'>
-      <button id="resolver">Resolver</button>
-    </div>
+    <table id='juego'>
+      <tr>
+        <td id="instrucciones">
+          <h1>Laberinto</h1>
+          <p>Ayuda al niño a llegar a su manzana</p>
+          <p>Usa las flechas del teclado para guiarlo</p>
+          <p><button id="reiniciar">Reiniciar</button></p>
+          <p><button id="resolver">Resolver</button></p>
+        </td>
+        <td>
+          <div id="laberinto" align='center'></div>
+        </td>
+      </tr>
+    </table>
     <script src="js/javascript.js"></script>
   </body>
 </html>

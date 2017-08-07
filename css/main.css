@@ -1,7 +1,15 @@
-body{
+#juego{
   text-align: center;
+  margin: 20px;
 }
-td{
+#laberinto{
+  width: 720px; 
+  height: 550px; 
+}
+#instrucciones{
+  width: 350px;
+}
+#mapa td{
   width: 40px;
   height: 50px;
   padding: 0;
@@ -17,6 +25,12 @@ td{
   background-image: url('persona.jpg');
   background-position: 0px -62px;
 }
+
+.llegada{
+  background-image: url('apple.png');
+  background-size: contain;
+}
+
 @keyframes walk1 {
   0% {background-position: 0px -62px}
   100% {background-position: 156px -62px}
