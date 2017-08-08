@@ -3,11 +3,15 @@
   margin: 20px;
 }
 #laberinto{
-  width: 720px; 
-  height: 550px; 
+  width: 720px;
+  height: 550px;
 }
 #instrucciones{
   width: 350px;
+}
+
+#mapa{
+  background-color: #B0FA73;
 }
 #mapa td{
   width: 40px;
@@ -22,7 +26,7 @@
 }
 
 #empezar{
-  background-image: url('persona.jpg');
+  background-image: url('persona.png');
   background-position: 0px -62px;
 }
 
@@ -31,35 +35,35 @@
   background-size: contain;
 }
 
-@keyframes walk1 {
+@keyframes arriba {
   0% {background-position: 0px -62px}
   100% {background-position: 156px -62px}
 }
 #up{
-  background-image: url('persona.jpg');
-  animation: walk1 1s steps(4) infinite;
+  background-image: url('persona.png');
+  animation: arriba 1s steps(4) infinite;
 }
-@keyframes walk2 {
+@keyframes abajo {
   0% {background-position: 0px -2px}
   100% {background-position: 156px -2px}
 }
 #down{
-  background-image: url('persona.jpg');
-  animation: walk2 1s steps(4) infinite;
+  background-image: url('persona.png');
+  animation: abajo 1s steps(4) infinite;
 }
-@keyframes walk3 {
+@keyframes derecha {
   0% {background-position: 0px -182px}
   100% {background-position: 160px -182px}
 }
 #rigth{
-  background-image: url('persona.jpg');
-  animation: walk3 1s steps(4) infinite;
+  background-image: url('persona.png');
+  animation: derecha 1s steps(4) infinite;
 }
-@keyframes walk4 {
+@keyframes izquierda{
   0% {background-position: 0px -122px}
   100% {background-position: 160px -122px}
 }
 #left{
-  background-image: url('persona.jpg');
-  animation: walk4 1s steps(4) infinite;
+  background-image: url('persona.png');
+  animation: izquierda 1s steps(4) infinite;
 }

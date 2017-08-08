@@ -17,7 +17,7 @@ var mapa=[
 
 var x;
 var y;
-var f;
+var actual;
 var xfinal;
 var yfinal;
 
@@ -27,6 +27,7 @@ var teclas = {
   LEFT: 37,
   RIGHT: 39
 };
+
 document.addEventListener("keydown", movimiento);
 
 var map = [];
@@ -55,7 +56,7 @@ function generarMapa(mapa, direccion) {
         } else if(mapa[i][j]=='o'){
           x=j;
           y=i;
-          f=direccion;
+          actual=direccion;
           celda.setAttribute('id',direccion);
         } else if (mapa[i][j]=='W') {
           xfinal=j;
@@ -81,13 +82,15 @@ function generarMapa(mapa, direccion) {
 generarMapa(map, 'empezar');
 
 
-function move(a, b, direccion) {
-  if(map[y+a][x+b]!='*' &&f==direccion){
+function move(a, b, direccion)
+{
+  if(map[y+a][x+b]!='*' && actual==direccion){
     map[y][x]='x';
     map[y+a][x+b]='o';
   }
   generarMapa(map, direccion);
 }
+
 
 function movimiento(evento)
 {
@@ -115,97 +118,58 @@ reiniciar.onclick=function() {
   clearInterval(time);
 }
 
-function pegado(a, b, f) {
+function voltear(a, b, f){
   if(f=='arriba'&& f=='abajo'){
-    return map[y+b][x+a]=='*';
+    return map[y+a][x+b]=='*'&&map[y+b][x+a]=='*';
   } else {
-    return map[y-b][x+a]=='*';
+    return map[y+a][x+b]=='*'&&map[y-b][x+a]=='*';
   }
 }
-function voltear(a, b){
-  if(f=='arriba'&& f=='abajo'){
-    return map[y+a][x]=='*'&&map[y][x+a]=='*';
-  } else {
-    return map[y-b][x]=='*'&& map[y][x+b]=='*';
+
+function check(a, b, flecha) {
+  move(a,b,actual);
+  if(voltear(a,b,actual)){
+    move(a, b, flecha);
   }
-}
-function check(a, b, flecha1, flecha2) {
-  if(map[y+a][x+b]!='*' && pegado(a, b, f)){
-    move(a, b, f);
-  } 
 }
 
 var time;
 
 var r = document.getElementById('resolver');
 r.onclick=function () {
-  time = setInterval(resolver, 300);
+  time = setInterval(resolver, 400);
 }
 
 function resolver(){
   if(x==xfinal && y==yfinal){
     clearInterval(time);
   }
-  switch (f) {
+  switch (actual) {
     case arriba:
-      check(-1, 0, derecha, izquierda);
-      if(map[y-1][x]=='*'&&map[y][x-1]=='*'){
-        f=derecha;
-        generarMapa(map,f);
-      }
+      check(-1, 0, derecha);
       if(map[y+1][x-1]=='*'&& map[y][x-1]!='*'){
-        f=izquierda;
-        generarMapa(map,f);
-        move(0, -1, izquierda);
+        generarMapa(map,izquierda);
       }
     break;
     case derecha:
-      check(0, 1, arriba, abajo);
-      if(map[y-1][x]=='*'&& map[y][x+1]=='*'){
-        f=abajo;
-        generarMapa(map,f);
-      }
+      check(0, 1, abajo);
       if(map[y-1][x-1]=='*'&& map[y-1][x]!='*'){
-        f=arriba;
-        generarMapa(map,f);
-        move(-1, 0, arriba);
+        generarMapa(map,arriba);
       }
     break;
     case izquierda:
-      check(0, -1, abajo, arriba);
-      if(map[y+1][x]=='*'&&map[y][x-1]=='*'){
-        f=arriba;
-        generarMapa(map,f);
-      }
+      check(0, -1, arriba);
       if(map[y+1][x+1]=='*'&& map[y+1][x]!='*'){
-        f=abajo;
-        generarMapa(map,f);
-        move(1, 0, abajo);
+        generarMapa(map,abajo);
       }
     break;
     case abajo:
-      check(1, 0, izquierda, derecha);
-      if(map[y+1][x]=='*'&&map[y][x+1]=='*'){
-        f=izquierda;
-        generarMapa(map,f);
-      }
+      check(1, 0, izquierda);
       if(map[y-1][x+1]=='*'&& map[y][x+1]!='*'){
-        f=derecha;
-        generarMapa(map,f);
-        move(0, 1, derecha);
+        generarMapa(map,derecha);
       }
     break;
     default:
-      f=arriba;
+      actual=arriba;
   }
 };
-
-/*function () {
-  time = setInterval(resolver, 300);
-}
-function resolver(){
-  if(x==xfinal && y==yfinal){
-    clearInterval(time);
-  }
-  
-*/
