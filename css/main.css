@@ -52,6 +52,10 @@ button:active{
   text-align: center;
 }
 
+.ganador{
+  padding-top: 150px;
+}
+
 .muro{
   background-image: url('https://userscontent2.emaze.com/images/aba421ac-f1c7-4734-ab10-a9b3c2c16bc0/543b4f53f5ca95423a5f0abbacd5a07a.png');
   background-size: cover;

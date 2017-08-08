@@ -2,7 +2,7 @@ var laberinto=document.getElementById('laberinto');
 var reiniciar = document.getElementById('reiniciar');
 var seleccionar = document.getElementById('nivel');
 
-var mapa=[
+var mapa1=[
 "******************",
 "*_________*______*",
 "*__****_____******",
@@ -15,8 +15,43 @@ var mapa=[
 "*o*___________**W*",
 "******************"];
 
+var mapa2=[
+"******************",
+"*_________*____*W*",
+"*__****_____******",
+"*______***__*__*_*",
+"***_*____*____**_*",
+"*___*____**__*___*",
+"*_***_****__**_*_*",
+"*____*______*__*_*",
+"*_**_*__*****_**_*",
+"*o____________*__*",
+"******************"];
+
+var mapa3=[
+"*******************",
+"*_____*___*_______*",
+"*__****_____*****_*",
+"*___*__***_____*__*",
+"***_*____*____**__*",
+"*___*____**__*____*",
+"*_****__**__**_*__*",
+"*____*______*__*__*",
+"*_**_*__*****_***_*",
+"*o*___________**W_*",
+"*******************"];
+
+var mapa=mapa1;
 seleccionar.onchange=function() {
-  console.log(seleccionar.value);
+  var select=seleccionar.value;
+  console.log(select);
+  if(select=='1'){
+    mapa=mapa1;
+  } else if (select=='2') {
+    mapa=mapa2;
+  } else if(select=='3'){
+    mapa=mapa3
+  }
 }
 
 var x;
@@ -41,6 +76,7 @@ for (var i = 0; i < mapa.length; i++){
     map[i][j]=mapa[i][j];
   }
 }
+
 var izquierda='left';
 var derecha='rigth';
 var arriba='up';
@@ -73,13 +109,17 @@ function generarMapa(mapa, direccion) {
   }
   laberinto.appendChild(tabla);
   if(x==xfinal && y==yfinal){
+    var div=document.createElement('div');
+    div.setAttribute('class', 'ganador');
     var imagen = document.createElement('img');
-    imagen.setAttribute('src','css/manzana.jpg');
-    laberinto.replaceChild(imagen, laberinto.firstChild);
+    imagen.setAttribute('src','css/mordida.png');
+    imagen.setAttribute('width', '215px')
     var p=document.createElement('p');
     var texto= document.createTextNode('Yum.. Que rico!');
     p.appendChild(texto);
-    laberinto.appendChild(p);
+    div.appendChild(imagen);
+    div.appendChild(p);
+    laberinto.replaceChild(div, laberinto.firstChild);
   }
 }
 
