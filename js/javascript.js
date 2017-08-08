@@ -18,7 +18,7 @@ var mapa1=[
 var mapa2=[
 "******************",
 "*_________*____*W*",
-"*__****_____******",
+"*__****_____****_*",
 "*______***__*__*_*",
 "***_*____*____**_*",
 "*___*____**__*___*",
@@ -42,6 +42,7 @@ var mapa3=[
 "*******************"];
 
 var mapa=mapa1;
+
 seleccionar.onchange=function() {
   var select=seleccionar.value;
   console.log(select);
@@ -52,6 +53,8 @@ seleccionar.onchange=function() {
   } else if(select=='3'){
     mapa=mapa3
   }
+  iniciar();
+  generarMapa(map, 'empezar');
 }
 
 var x;
@@ -70,12 +73,16 @@ var teclas = {
 document.addEventListener("keydown", movimiento);
 
 var map = [];
-for (var i = 0; i < mapa.length; i++){
-  map[i]=[];
-  for (var j = 0; j < mapa[0].length; j++) {
-    map[i][j]=mapa[i][j];
+function iniciar(){
+  for (var i = 0; i < mapa.length; i++){
+      map[i]=[];
+    for (var j = 0; j < mapa[0].length; j++) {
+      map[i][j]=mapa[i][j];
+    }
   }
 }
+iniciar();
+generarMapa(map, 'empezar');
 
 var izquierda='left';
 var derecha='rigth';
@@ -123,7 +130,6 @@ function generarMapa(mapa, direccion) {
   }
 }
 
-generarMapa(map, 'empezar');
 
 
 function move(a, b, direccion)
