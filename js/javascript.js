@@ -1,19 +1,23 @@
 var laberinto=document.getElementById('laberinto');
 var reiniciar = document.getElementById('reiniciar');
+var seleccionar = document.getElementById('nivel');
 
 var mapa=[
 "******************",
 "*_________*______*",
-"*_*****_*___******",
-"*_______**__*__*_*",
-"***_*_____*___**_*",
+"*__****_____******",
+"*______***__*__*_*",
+"***_*____*____**_*",
 "*___*____**__*___*",
 "*_********__**_*_*",
-"*__*_*______*__*_*",
-"*__*_*__*****_**_*",
+"*____*______*__*_*",
+"*_**_*__*****_**_*",
 "*o*___________**W*",
 "******************"];
 
+seleccionar.onchange=function() {
+  console.log(seleccionar.value);
+}
 
 var x;
 var y;

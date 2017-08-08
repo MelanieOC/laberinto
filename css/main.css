@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Architects+Daughter|Fredoka+One|Josefin+Sans');
+
+body{
+  margin-top: 50px;
+  margin-left: 50px;
+  background-image: url('fondo2.jpg');
+  background-size: cover;
+}
 #juego{
   text-align: center;
   margin: 20px;
@@ -6,9 +14,33 @@
   width: 720px;
   height: 550px;
 }
+
+
 #instrucciones{
   width: 350px;
+  font-size: 120%;
+  font-family: 'Josefin Sans';
 }
+
+button {
+  padding: 15px;
+  font-family: 'Fredoka One';
+  color: #fff;
+  background-color: #6496c8;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px #27496d;
+}
+
+button:hover {
+  background-color: #417cb8
+}
+
+button:active{
+  background-color: #417cb8;
+  transform: translateY(2px);
+}
+
 
 #mapa{
   background-color: #B0FA73;
